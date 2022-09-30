@@ -29,17 +29,17 @@ else()
 endif()
 
 # 添加头文件Include的目录
-include_directories(./Hellow ./World)
+include_directories(./Hello ./World)
 
 # 添加编译子目录
-add_subdirectory(Hellow)
+add_subdirectory(Hello)
 add_subdirectory(World)
 
 # Target
 add_executable(cmake_test ${DIRSRCS})
-target_link_libraries(cmake_test hellow world)
+target_link_libraries(cmake_test hello world)
 
 # 手动添加编译文件
-# set(HELLO_SRC Hellow/hellow.cpp)
+# set(HELLO_SRC Hello/hello.cpp)
 # set(WORLD_SRC World/world.cpp)
 # add_executable(cmake_test main.cpp ${HELLO_SRC} ${WORLD_SRC})

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "hellow.h"
+#include "hello.h"
 #include "world.h"
 
 int main()
@@ -10,7 +10,7 @@ int main()
 #else
 		std::cout << "UNUSE_MACRO" << std::endl;
 #endif
-	hellow();
+	hello();
 	world();
 	return 0;
 }
