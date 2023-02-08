@@ -1,16 +1,15 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.1.0)
 
-project(cmake_test)
+project(cmake_demo)
+add_compile_options(-std=c++11)
 
 # 添加编译根目录
 aux_source_directory(. DIRSRCS)
 
-set(CMAKE_CXX_STANDARD 11)
-
 message(STATUS ${CMAKE_CURRENT_LIST_FILE})
 message(${CMAKE_BINARY_DIR})
 message("Project Dir: ${PROJECT_BINARY_DIR}")
-  
+
 # set macro "USE_MACRO" in main.cpp
 option(-DIS_USE_MACRO "is Use Macro")
 if(IS_USE_MACRO)
