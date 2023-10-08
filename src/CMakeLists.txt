@@ -23,6 +23,10 @@ include_directories ("${PROJECT_SOURCE_DIR}/Thread")
 add_subdirectory (Thread)
 list (APPEND EXTRA_LIBS ThreadTest)
 
+include_directories ("${PROJECT_SOURCE_DIR}/Template")
+add_subdirectory (Template)
+list (APPEND EXTRA_LIBS TemplateTest)
+
 # 添加编译根目录
 aux_source_directory(. DIRSRCS)
 

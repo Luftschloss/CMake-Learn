@@ -5,6 +5,8 @@
 using namespace std;
 
 #include "Thread/background_task.h"
+#include "Template/TemplateTest.h"
+
 #ifdef USE_MYMATH
 #include "Math/MathFuc.h"
 #else
@@ -13,6 +15,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+	TemplateTest01();
+
 	ThreadTest();
 
 	if (argc < 3) {
