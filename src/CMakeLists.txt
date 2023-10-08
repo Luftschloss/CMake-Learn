@@ -16,8 +16,12 @@ option (USE_MYMATH
 if (USE_MYMATH)
   include_directories ("${PROJECT_SOURCE_DIR}/Math")
   add_subdirectory (Math)  
-  set (EXTRA_LIBS ${EXTRA_LIBS} MathFunc)
+  set (EXTRA_LIBS MathFunc)
 endif (USE_MYMATH)
+
+include_directories ("${PROJECT_SOURCE_DIR}/Thread")
+add_subdirectory (Thread)
+list (APPEND EXTRA_LIBS ThreadTest)
 
 # 添加编译根目录
 aux_source_directory(. DIRSRCS)

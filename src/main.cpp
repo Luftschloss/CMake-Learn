@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "config.h"
 
+using namespace std;
+
+#include "Thread/background_task.h"
 #ifdef USE_MYMATH
 #include "Math/MathFuc.h"
 #else
@@ -10,6 +13,8 @@
 
 int main(int argc, char* argv[])
 {
+	ThreadTest();
+
 	if (argc < 3) {
 		printf("Usage: %s base exponent \n", argv[0]);
 		return 1;
@@ -24,5 +29,6 @@ int main(int argc, char* argv[])
 	double result = pow(base, exponent);
 #endif
 	printf("%g ^ %d is %g\n", base, exponent, result);
+
 	return 0;
 }
