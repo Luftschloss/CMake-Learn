@@ -12,3 +12,5 @@ void MutexTest2(int n, char c);
 
 void ThreadTest();
 
+void MoveThread();
+

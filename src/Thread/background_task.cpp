@@ -38,8 +38,8 @@ int testNum = 1;
 
 void MutexTest1(int n, char c)
 {
+	cout << "MutexTest1====>Start" << endl;
 	mtx1.lock();
-	cout << "MutexTest1:";
 	for (size_t i = 0; i < n; i++)
 	{
 		testNum = 1;
@@ -47,6 +47,7 @@ void MutexTest1(int n, char c)
 	}
 	cout << n << endl;
 	mtx1.unlock();
+	cout << "MutexTest1====>Done" << endl;
 }
 
 void MutexTest2(int n, char c)
@@ -62,8 +63,45 @@ void MutexTest2(int n, char c)
 	mtx2.unlock();
 }
 
+mutex lock1;
+mutex lock2;
+
+/// <summary>
+/// 环路资源等待死锁，梳理两个线程获取资源的顺序可解决
+/// </summary>
+void MutexLockTest()
+{
+	thread t1([] {
+		cout << "Thread 1 wait res1" << endl;
+		lock1.lock();
+		cout << "Thread 1 get res1" << endl;
+		_sleep(1);
+		cout << "Thread 1 wait res2" << endl;
+		lock2.lock();
+		cout << "Thread 1 get res2" << endl;
+		lock2.unlock();
+		lock1.unlock();
+	});
+
+	thread t2([] {
+		cout << "Thread 2 wait res2" << endl;
+		lock2.lock();
+		cout << "Thread 2 get res2" << endl;
+		_sleep(1);
+		cout << "Thread 2 wait res1" << endl;
+		lock1.lock();
+		cout << "Thread 2 get res1" << endl;
+		lock1.unlock();
+		lock2.unlock();
+	});
+
+	t1.join();
+	t2.join();
+}
+
 void ThreadTest()
 {
+	MutexLockTest();
 	//thread first(ThreadWhile1);
 	thread second(ThreadWhile2, 5);
 	cout << "Main Thread" << endl;
@@ -88,5 +126,13 @@ void ThreadTest()
 		}
 	});
 	dThread.detach();
+}
+
+void MoveThread()
+{
+	thread t1(MutexTest1, 100, 'P');
+	thread t2 = move(t1);
+
+
 }
 
