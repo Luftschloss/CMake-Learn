@@ -5,7 +5,10 @@
 using namespace std;
 
 #include "Thread/background_task.h"
+#include "Thread/future_test.h"
 #include "Template/TemplateTest.h"
+#include "C++11Test/test.h"
+
 
 #ifdef USE_MYMATH
 #include "Math/MathFuc.h"
@@ -15,8 +18,10 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	TemplateTest01();
+	CPP11::Test01();
 
+	//TemplateTest01();
+	future_test::test2();
 	ThreadTest();
 
 	if (argc < 3) {

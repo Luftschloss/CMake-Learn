@@ -99,9 +99,43 @@ void MutexLockTest()
 	t2.join();
 }
 
+std::mutex mtx;
+bool testTFinish = false;
+std::condition_variable cv;
+void ThreadNotifyTest()
+{
+	std::thread testT([]
+	{
+		testTFinish = false;
+		cout << "notify thread start" << endl;
+		std::this_thread::sleep_for(std::chrono::seconds(3));
+		cout << "notify thread finish" << endl;
+		{
+			std::lock_guard<std::mutex> lck(mtx);
+			testTFinish = true;
+		}
+		cv.notify_one();
+	});
+
+	cout << "main thread start" << endl;
+
+	while (true)
+	{
+		cout << "Loop" << endl;
+		{
+			std::unique_lock<std::mutex> lck(mtx);
+			cv.wait(lck, [] {return testTFinish; });
+			break;
+		}
+	}
+	cout << "main thread finish" << endl;
+	testT.join();
+}
+
 void ThreadTest()
 {
-	MutexLockTest();
+	ThreadNotifyTest();
+	//MutexLockTest();
 	//thread first(ThreadWhile1);
 	thread second(ThreadWhile2, 5);
 	cout << "Main Thread" << endl;

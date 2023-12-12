@@ -1,16 +1,21 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-project(cmake_demo)
+project(cmake_demo VERSION 2.0.1)
+
+# 是否使用自己的 MathFunc 库
+option (USE_MYMATH
+       "Use provided math implementation" OFF)
+
+set(MYTEST 7)
 
 # 加入一个配置头文件，用于处理 CMake 对源码的设置
 configure_file (
   "${PROJECT_SOURCE_DIR}/config.h.in"
   "${PROJECT_BINARY_DIR}/config.h"
+  @ONLY
   )
 
-# 是否使用自己的 MathFunc 库
-option (USE_MYMATH
-       "Use provided math implementation" ON)
+  message("dir:${PROJECT_BINARY_DIR}")
 
 # 是否加入 MathFunc 库
 if (USE_MYMATH)
@@ -26,6 +31,10 @@ list (APPEND EXTRA_LIBS ThreadTest)
 include_directories ("${PROJECT_SOURCE_DIR}/Template")
 add_subdirectory (Template)
 list (APPEND EXTRA_LIBS TemplateTest)
+
+include_directories ("${PROJECT_SOURCE_DIR}/C++11Test")
+add_subdirectory (C++11Test)
+list (APPEND EXTRA_LIBS CPP11)
 
 # 添加编译根目录
 aux_source_directory(. DIRSRCS)
