@@ -36,6 +36,10 @@ include_directories ("${PROJECT_SOURCE_DIR}/C++11Test")
 add_subdirectory (C++11Test)
 list (APPEND EXTRA_LIBS CPP11)
 
+include_directories ("${PROJECT_SOURCE_DIR}/LeetCode")
+add_subdirectory (LeetCode)
+list (APPEND EXTRA_LIBS LeetCode)
+
 # 添加编译根目录
 aux_source_directory(. DIRSRCS)
 
