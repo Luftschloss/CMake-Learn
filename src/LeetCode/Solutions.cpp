@@ -3,7 +3,7 @@
 
 namespace LeetCode
 {
-	//Numb:2
+	// Numb:2
 	ListNode* Solutions::addTwoNumbers(ListNode* l1, ListNode* l2)
 	{
 		auto sum = l1->val + l2->val;
@@ -51,4 +51,77 @@ namespace LeetCode
 		}
 		return signV ? ret : -ret;
 	}
+
+	// Numb:43
+	string Solutions::multiply(string num1, string num2)
+	{
+		int* nums2 = new int[num2.length()];
+		return "";
+	}
+
+	// Numb:67
+	string Solutions::addBinary(string a, string b)
+	{
+		string ret = "";
+		char up = '0';
+		int aidx = a.length();
+		int bidx = b.length();
+		while (aidx > 0 || bidx > 0)
+		{
+			char aVal = --aidx < 0 ? '0' : a[aidx];
+			char bVal = --bidx < 0 ? '0' : b[bidx];
+			auto val = up + aVal + bVal;
+			if (val == 147)
+			{
+				ret.insert(0, "1");
+				up = '1';
+			}
+			else if (val == 146)
+			{
+				ret.insert(0, "0");
+				up = '1';
+			}
+			else if(val == 145)
+			{
+				ret.insert(0, "1");
+				up = '0';
+			}
+			else
+			{
+				ret.insert(0, "0");
+				up = '0';
+			}
+		}
+		if (up == '1')
+			ret.insert(0, "1");
+		return ret;
+	}
+
+	// Numb:69
+	int Solutions::mySqrt(int x)
+	{
+		if (x <= 1) {
+			return x;
+		}
+
+		int left = 1;
+		int right = x / 2;
+		int result = 0;
+
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+
+			if (mid <= x / mid) {
+				left = mid + 1;
+				result = mid;
+			}
+			else {
+				right = mid - 1;
+			}
+		}
+
+		return result;
+	}
+
+
 }
