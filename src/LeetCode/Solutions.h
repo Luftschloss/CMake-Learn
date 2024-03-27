@@ -16,6 +16,8 @@ namespace LeetCode
 
         static string addBinary(string a, string b);
 
-        int mySqrt(int x);
+        static int mySqrt(int x);
+
+        static int climbStairs(int n);
     };
 }

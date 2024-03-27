@@ -123,5 +123,19 @@ namespace LeetCode
 		return result;
 	}
 
-
+	/// <summary>
+	/// Numb:70
+	/// f(n) = f(n-1) + f(n-2)
+	/// </summary>
+	/// <param name="n"></param>
+	/// <returns></returns>
+	int Solutions::climbStairs(int n) {
+		int a = 1, b = 1, sum;
+		for (int i = 0; i < n - 1; i++) {
+			sum = a + b;
+			a = b;
+			b = sum;
+		}
+		return b;
+	}
 }
