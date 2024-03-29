@@ -1,5 +1,8 @@
-#include "background_task.h"
 #include <mutex>
+#include <vector>
+#include "thread_func.h"
+#include "thread_test.h"
+#include "threads.h"
 
 using namespace std;
 
@@ -10,14 +13,14 @@ void ThreadFunc1()
 
 void ThreadFunc2(int p)
 {
-	cout << "ThreadFunc2  Input : "<< p << endl;
+	cout << "ThreadFunc2  Input : " << p << endl;
 }
 
 void ThreadWhile1()
 {
 	while (1)
 	{
-		cout<<"While Thread1 On"<< endl;
+		cout << "While Thread1 On" << endl;
 		_sleep(1000);
 	}
 }
@@ -168,5 +171,59 @@ void MoveThread()
 	thread t2 = move(t1);
 
 
+}
+
+void ThreadParam1()
+{
+	ThreadX x;
+	int num = 5;
+	std::thread t(&ThreadX::do_work, &x, num);
+	auto id = t.get_id();
+	t.join();
+	auto id2 = t.get_id();
+
+	std::cout << "ThreadParam1  \t" << num << std::endl;
+}
+
+void ThreadTest2()
+{
+	std::vector<int> arr;
+	auto sum0 = 0;
+	for (size_t i = 0; i < 1000; i++)
+	{
+		arr.push_back(i);
+		sum0 += i;
+	}
+	auto sum = parallel_accumulate(arr.begin(), arr.end(), 0);
+
+}
+
+std::mutex cv_mtx;
+bool ready = false;
+std::condition_variable cv2;
+
+void condition_work()
+{
+	auto tid = std::this_thread::get_id();
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+	{
+		std::lock_guard<std::mutex> lock(cv_mtx);
+		ready = true;
+	}
+	cv2.notify_one();
+}
+
+void ThreadCondition1()
+{
+	auto tid = std::this_thread::get_id();
+	std::thread t(condition_work);
+	//主线程等待条件满足
+	{
+		std::unique_lock<std::mutex> lock(cv_mtx);
+		cv2.wait(lock, [] {return ready; });
+	}
+	std::cout << "ThreadCondition1 resumed" << std::endl;
+	t.join();
+	std::cout << "ThreadCondition1 finish" << std::endl;
 }
 

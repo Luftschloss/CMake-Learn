@@ -54,6 +54,27 @@ namespace CPP11
 
 	void TestUniquePtr();
 
+	void PtrTest1();
+
+	class data1
+	{
+	public:
+		std::vector<int> Get() const
+		{
+			return vec;
+		}
+
+		std::vector<int>& GetRef()
+		{
+			return vec;
+		}
+
+	private:
+		std::vector<int> vec = { 1,2,3,4 };
+	};
+
+	void PtrTest2();
+
 	int TestVa_List(int count, ...);
 
 	namespace Regex

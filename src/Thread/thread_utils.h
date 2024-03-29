@@ -63,6 +63,8 @@ class thread_safe_queue
 {
 public:
 	thread_safe_queue() {}
+	thread_safe_queue(const thread_safe_queue&) {}
+	thread_safe_queue& operator=(const thread_safe_queue&) = delete;
 
 	void push(T val)
 	{
@@ -108,7 +110,7 @@ public:
 		return re;
 	}
 
-	bool empty()
+	bool empty() const
 	{
 		lock_guard<mutex> lk(mut);
 		return data_queue.empty();
@@ -116,7 +118,7 @@ public:
 
 private:
 
-	mutable mutex mut;
+    mutable mutex mut;			// 因为empty是一个const成员函数
 	queue<T> data_queue;
 	condition_variable data_cond;
 

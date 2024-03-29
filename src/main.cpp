@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#include "Thread/background_task.h"
+#include "Thread/thread_test.h"
 #include "Thread/future_test.h"
 #include "Template/TemplateTest.h"
 #include "C++11Test/test.h"
@@ -20,21 +20,9 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	auto ww = LeetCode::Solutions::divide(-2147483648, 1);
-
-
-
-	auto cl = sizeof(wchar_t);
-
-	auto ret = CPP11::TestVa_List(3, 10, 49, 1);
-
-	CPP11::Container::QueueTest();
-	CPP11::Regex::Test01();
-	CPP11::Test01();
-
-	//TemplateTest01();
 	future_test::test2();
-	ThreadTest();
+
+	//ThreadTest();
 
 	if (argc < 3) {
 		printf("Usage: %s base exponent \n", argv[0]);

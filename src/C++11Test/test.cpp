@@ -31,6 +31,8 @@ namespace CPP11
 		std::cout << "smart ptr test end" << std::endl;
 	}
 
+
+
 	void TestUniquePtr()
 	{
 		auto ut1 = UniqueT::MakeOne("P1");
@@ -41,6 +43,34 @@ namespace CPP11
 		auto ut3 = UniqueT::MakeOne("P2");
 		std::cout << ut3->GetName() << std::endl;
 
+	}
+
+	void PtrTest1()
+	{
+		int* p;				// 指针未初始化，此时 p 为野指针
+		int* pi = nullptr;
+
+		{
+			int i = 6;
+			pi = &i;		// 此时 pi 指向一个正常的地址
+			*pi = 8;		// ok
+		}
+
+		*pi = 6;			// 由于 pi 指向的变量 i 已经销毁，此时 pi 即成了悬空指针
+	}
+
+	
+
+	void PtrTest2()
+	{
+		data1 data{};
+		auto const& d1 = data.Get()[1];
+		auto const& d2 = data.Get()[2];
+
+		auto d3 = data.GetRef()[1];
+		auto d4 = data.GetRef()[2];
+
+		std::cout << "d1:" << d1 << ", d2:" << d2 << "; d3:" << d3 << ", d4:" << d4 << std::endl;
 	}
 
 	int TestVa_List(int count, ...)
