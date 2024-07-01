@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Math.hpp"
 #include "TemplateTest.h"
 
 using namespace std;
@@ -21,3 +22,9 @@ void TemplateTest01()
 	cout << a1.f1() << endl;
 	cout << a1.f2() << endl;
 }
+
+void TM1()
+{
+	auto a = binary<1001>::value;
+}
+

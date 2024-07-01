@@ -3,6 +3,7 @@
 #include "thread_func.h"
 #include "thread_test.h"
 #include "threads.h"
+#include "thread_utils.h"
 
 using namespace std;
 
@@ -227,3 +228,59 @@ void ThreadCondition1()
 	std::cout << "ThreadCondition1 finish" << std::endl;
 }
 
+class RingBufferData
+{
+public:
+	RingBufferData(int _id = 0, int _val = 0)
+	{
+		id = _id;
+		value = _val;
+		sprintf(data, "ID = %d, Value = %d\n", _id, _val);
+	}
+private:
+	int id;
+	int value;
+	char data[128];
+};
+
+RingBuffer<RingBufferData> ringBuffer(512);
+
+const size_t N = 1024;
+
+void producer()
+{
+	auto start = clock();
+	for (size_t i = 0; i < N; i++)
+	{
+		RingBufferData data(i % 512, i);
+		ringBuffer.Push(data);
+	}
+	double tm = (clock() - start) / CLOCKS_PER_SEC;
+	auto a = this_thread::get_id();
+	printf("producer tid=%lu %f MB/s elapsed= %u size= %lu\n", this_thread::get_id(), N * sizeof(RingBufferData)/ tm * (1024 * 1024), tm, N);
+}
+void consumer()
+{
+	_sleep(1);
+	RingBufferData data;
+	auto start = clock();
+	unsigned int i = 0;
+	while (i < N)
+	{
+		if (ringBuffer.Pop(data))
+		{
+			i++;
+		}
+	}
+	double tm = (clock() - start) / CLOCKS_PER_SEC;
+	printf("consumer tid=%lu %f MB/s elapsed= %f, size=%u \n", this_thread::get_id(), N * sizeof(RingBufferData) / (tm * 1024 * 1024), tm, i);
+}
+
+
+void RingBufferTest()
+{
+	std::thread producer1(producer);
+	std::thread consumer(consumer);
+	producer1.join();
+	consumer.join();
+}

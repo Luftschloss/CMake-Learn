@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sstream>
+#include <iomanip>
 #include "config.h"
 
 using namespace std;
@@ -16,13 +18,43 @@ using namespace std;
 #else
 #include <math.h>
 #endif
+#include <map>
+
+class SSS
+{
+public:
+	SSS(const std::string& n)
+	{
+		Name = n;
+	}
+	std::string Name;
+};
 
 
 int main(int argc, char* argv[])
 {
-	future_test::test2();
+	std::map<std::string, SSS*> map{};
+	{
+		std::vector<SSS*> list{};
+		list.push_back(new SSS("s1"));
+		list.push_back(new SSS("s2"));
+		list.push_back(new SSS("s3"));
+		list.push_back(new SSS("s3"));
 
-	//ThreadTest();
+		auto listItem2 = list[2];
+		for (auto s : list)
+		{
+			if (map.count(s->Name) == 0)
+			{
+				map[s->Name] = std::move(s);
+			}
+		}
+
+		list.clear();
+	}
+
+	float number = 5.5;
+	std::cout << "Number: " << std::setfill('0') << std::setw(3) << number << std::endl;
 
 	if (argc < 3) {
 		printf("Usage: %s base exponent \n", argv[0]);

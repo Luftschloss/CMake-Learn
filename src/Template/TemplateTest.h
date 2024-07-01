@@ -109,3 +109,5 @@ class aTMP2 {
 public:
 	enum { ret = N == 0 ? 1 : N * aTMP2<N - 1>::ret };
 };
+
+void TM1();

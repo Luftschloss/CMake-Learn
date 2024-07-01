@@ -1,0 +1,6 @@
+<CPackWiXPatch>
+  <CPackWiXFragment Id="#PRODUCT">
+    <Environment Id="MyEnvironment" Action="set"
+      Name="MyVariableName" Value="MyVariableValue"/>
+  </CPackWiXFragment>
+</CPackWiXPatch>

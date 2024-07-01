@@ -32,3 +32,5 @@ void ThreadParam1();
 void ThreadTest2();
 
 void ThreadCondition1();
+
+void RingBufferTest();

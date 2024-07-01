@@ -4,6 +4,7 @@
 #include <functional>
 #include <future>
 #include "thread_utils.h"
+#include <queue>
 
 
 class FunctionWrapper
@@ -75,4 +76,24 @@ private:
 	thread_safe_queue<FunctionWrapper> work_queue;
 	std::vector<std::thread> threads;
 
+};
+
+class ThreadPool
+{
+public:
+	ThreadPool(size_t size);
+
+	/// @note 可变参模板函数
+	/// 尾随的返回类型需要 auto 类型说明符
+	/// 这种（尾随返回）类型的写法在 C++ 11 中，用于返回类型依赖实参名或者返回类型复杂的时候
+	template <class F, class... Args>
+	auto Enqueue(F&& f, Args &&... args) -> std::future<typename std::result_of<F(Args...)>::type>;
+	
+	~ThreadPool();
+private:
+	std::vector<std::thread> m_workers;
+	std::queue <std::function<void()>> m_tasks;
+	std::mutex m_queue_mutex;
+	std::condition_variable m_condition;
+	bool stop;
 };
