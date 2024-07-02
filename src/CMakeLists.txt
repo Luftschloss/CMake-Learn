@@ -51,6 +51,8 @@ include_directories("${PROJECT_SOURECE_DIR}/Protobuf")
 add_subdirectory(Protobuf)
 list (APPEND EXTRA_LIBS PBTest)
 
+add_subdirectory(PETest)
+
 # 添加编译根目录
 aux_source_directory(. DIRSRCS)
 list (APPEND DIRSRCS "${PROJECT_SOURCE_DIR}/CPack.xml.in")
