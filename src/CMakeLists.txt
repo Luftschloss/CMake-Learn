@@ -52,6 +52,7 @@ add_subdirectory(Protobuf)
 list (APPEND EXTRA_LIBS PBTest)
 
 add_subdirectory(PETest)
+add_subdirectory(WindowsCoding)
 
 # 添加编译根目录
 aux_source_directory(. DIRSRCS)
