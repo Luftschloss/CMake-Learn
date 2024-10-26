@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <excpt.h>
+#include <windows.h>   
 
 namespace WindowsSEH
 {

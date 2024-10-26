@@ -62,6 +62,7 @@ message(STATUS ${CMAKE_CURRENT_LIST_FILE})
 message(${CMAKE_BINARY_DIR})
 message("Project Dir: ${PROJECT_BINARY_DIR}")
 
+set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -g -O2 -Wall")
 
 # Target
 add_executable(cmake_test ${DIRSRCS})
